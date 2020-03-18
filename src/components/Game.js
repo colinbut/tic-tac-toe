@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Board from './Board'
 import '../index.css'
 
 class Game extends React.Component {
     render() {
         return (
+            <Fragment>
+            <header className="header">
+                <h1>Tic Tac Toe</h1>
+            </header>
             <div className="game">
                 <div className="game-board">
                     <Board />
@@ -13,7 +17,11 @@ class Game extends React.Component {
                     <div>[PlaceHolder]</div>
                     <ol></ol>
                 </div>
-            </div>
+             </div>
+             <footer className="footer">
+                 <h3>by Colin But</h3>
+             </footer>
+            </Fragment>
         ) 
     }
 }
