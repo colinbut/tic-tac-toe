@@ -1,6 +1,16 @@
 import React, { Fragment } from 'react'
 import Board from './Board'
+import Button from '@material-ui/core/Button'
 import '../index.css'
+
+function boardComplete(squares) {
+    for (let i = 0; i < squares.length; i++) {
+        if (squares[i] === null) {
+            return false
+        }
+    }
+    return true
+}
 
 function calculateWinner(squares) {
     const lines = [
@@ -71,7 +81,7 @@ class Game extends React.Component {
             const desc  = move ? 'Go to move #' + move : 'Go to game start'
             return (
                 <li key={move}>
-                    <button onClick={() => this.jumpTo(move)}>{desc}</button>
+                    <Button color="primary" onClick={() => this.jumpTo(move)}>{desc}</Button>
                 </li>
             )
         })
@@ -80,7 +90,11 @@ class Game extends React.Component {
         if (winner) {
             status = "Winner: " + winner
         } else {
-            status = "Next Player: " + (this.state.xIsNext ? 'X' : 'O')
+            if (boardComplete(current.squares)) {
+                status = "It is a draw!"
+            } else {
+                status = "Next Player: " + (this.state.xIsNext ? 'X' : 'O')
+            }
         }
         return (
             <Fragment>
@@ -92,7 +106,7 @@ class Game extends React.Component {
                     <Board squares={current.squares} onClick={(i) => this.handleClick(i)}/>
                 </div>
                 <div className="game-info">
-                    <div>{status}</div>
+                    <div className="status">{status}</div>
                     <ol>{moves}</ol>
                 </div>
              </div>
